@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 export const useTrack = () => {
-  const [title, setTitle] = useState("Hold on, I'm coming");
-  const [artist, setArtist] = useState('Sam & Dave');
-  const [album, setAlbum] = useState('Album');
+  const [title, setTitle] = useState('');
+  const [artist, setArtist] = useState('');
+  const [album, setAlbum] = useState('');
   const [albumArtURI, setAlbumArtURI] = useState('');
 
   const setTrack = ({
@@ -31,7 +31,7 @@ export const useTrack = () => {
 
 export const useTrackSocket = setTrack =>
   useEffect(() => {
-    const socket = io('http://localhost:50205');
+    const socket = io(`http://${window.location.hostname}:50205`);
 
     socket.on('track', ({ title, artist, album, albumArtURI }) =>
       setTrack({
